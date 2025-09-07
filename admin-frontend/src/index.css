@@ -1,0 +1,335 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root { height: 100%; }
+body { margin: 0; }
+
+/* Dark Mode Styles */
+.dark-mode {
+  background-color: #121212 !important;
+  color: #ffffff !important;
+}
+
+.dark-mode #root {
+  background-color: #121212 !important;
+  color: #ffffff !important;
+}
+
+.dark-mode * {
+  background-color: inherit !important;
+  color: inherit !important;
+}
+
+/* Force dark mode on all elements */
+.dark-mode body {
+  background-color: #121212 !important;
+  color: #ffffff !important;
+}
+
+.dark-mode html {
+  background-color: #121212 !important;
+}
+
+.dark-mode .MuiAppBar-root {
+  background-color: #1e1e1e !important;
+  color: #ffffff !important;
+}
+
+.dark-mode .MuiDrawer-paper {
+  background-color: #1e1e1e !important;
+  color: #ffffff !important;
+}
+
+.dark-mode .MuiPaper-root {
+  background-color: #1e1e1e !important;
+  color: #ffffff !important;
+}
+
+.dark-mode .MuiCard-root {
+  background-color: #1e1e1e !important;
+  color: #ffffff !important;
+}
+
+.dark-mode .MuiTableContainer-root {
+  background-color: #1e1e1e !important;
+}
+
+.dark-mode .MuiTableHead-root {
+  background-color: #2d2d2d !important;
+}
+
+.dark-mode .MuiTableCell-root {
+  color: #ffffff !important;
+  border-color: #404040 !important;
+}
+
+.dark-mode .MuiTableRow-root:hover {
+  background-color: #2d2d2d !important;
+}
+
+.dark-mode .MuiButton-root {
+  color: #ffffff !important;
+}
+
+.dark-mode .MuiTextField-root .MuiOutlinedInput-root {
+  color: #ffffff !important;
+}
+
+.dark-mode .MuiTextField-root .MuiOutlinedInput-notchedOutline {
+  border-color: #404040 !important;
+}
+
+.dark-mode .MuiTextField-root .MuiInputLabel-root {
+  color: #b0b0b0 !important;
+}
+
+.dark-mode .MuiSelect-root {
+  color: #ffffff !important;
+}
+
+.dark-mode .MuiMenuItem-root {
+  color: #ffffff !important;
+}
+
+.dark-mode .MuiChip-root {
+  background-color: #2d2d2d !important;
+  color: #ffffff !important;
+}
+
+.dark-mode .MuiTypography-root {
+  color: #ffffff !important;
+}
+
+.dark-mode .MuiIconButton-root {
+  color: #ffffff !important;
+}
+
+.dark-mode .MuiListItem-root {
+  color: #ffffff !important;
+}
+
+.dark-mode .MuiListItemText-primary {
+  color: #ffffff !important;
+}
+
+.dark-mode .MuiListItemText-secondary {
+  color: #b0b0b0 !important;
+}
+
+.dark-mode .MuiDivider-root {
+  background-color: #404040 !important;
+}
+
+.dark-mode .MuiToolbar-root {
+  background-color: #1e1e1e !important;
+  color: #ffffff !important;
+}
+
+.dark-mode .MuiMenu-paper {
+  background-color: #1e1e1e !important;
+  color: #ffffff !important;
+}
+
+.dark-mode .MuiMenuItem-root:hover {
+  background-color: #2d2d2d !important;
+}
+
+/* React Admin specific dark mode styles */
+.dark-mode .ra-app {
+  background-color: #121212 !important;
+  color: #ffffff !important;
+}
+
+.dark-mode .ra-layout {
+  background-color: #121212 !important;
+}
+
+.dark-mode .ra-sidebar {
+  background-color: #1e1e1e !important;
+  border-right: 1px solid #404040 !important;
+}
+
+.dark-mode .ra-sidebar .MuiListItem-root {
+  color: #ffffff !important;
+}
+
+.dark-mode .ra-sidebar .MuiListItem-root:hover {
+  background-color: #2d2d2d !important;
+}
+
+.dark-mode .ra-sidebar .MuiListItem-root.Mui-selected {
+  background-color: #1976d2 !important;
+}
+
+.dark-mode .ra-content {
+  background-color: #121212 !important;
+}
+
+.dark-mode .ra-list {
+  background-color: #121212 !important;
+}
+
+.dark-mode .ra-list .MuiToolbar-root {
+  background-color: #1e1e1e !important;
+  border-bottom: 1px solid #404040 !important;
+}
+
+.dark-mode .ra-list .MuiTableContainer-root {
+  background-color: #1e1e1e !important;
+}
+
+.dark-mode .ra-list .MuiTableHead-root {
+  background-color: #2d2d2d !important;
+}
+
+.dark-mode .ra-list .MuiTableRow-root {
+  border-bottom: 1px solid #404040 !important;
+}
+
+.dark-mode .ra-list .MuiTableRow-root:hover {
+  background-color: #2d2d2d !important;
+}
+
+.dark-mode .ra-list .MuiTableCell-root {
+  color: #ffffff !important;
+  border-bottom: 1px solid #404040 !important;
+}
+
+.dark-mode .ra-list .MuiTableCell-head {
+  color: #ffffff !important;
+  background-color: #2d2d2d !important;
+}
+
+.dark-mode .ra-list .MuiButton-root {
+  color: #ffffff !important;
+}
+
+.dark-mode .ra-list .MuiButton-contained {
+  background-color: #1976d2 !important;
+  color: #ffffff !important;
+}
+
+.dark-mode .ra-list .MuiButton-outlined {
+  border-color: #404040 !important;
+  color: #ffffff !important;
+}
+
+.dark-mode .ra-list .MuiButton-outlined:hover {
+  background-color: #2d2d2d !important;
+  border-color: #ffffff !important;
+}
+
+.dark-mode .ra-list .MuiChip-root {
+  background-color: #2d2d2d !important;
+  color: #ffffff !important;
+}
+
+.dark-mode .ra-list .MuiChip-filled {
+  background-color: #1976d2 !important;
+  color: #ffffff !important;
+}
+
+.dark-mode .ra-list .MuiChip-outlined {
+  border-color: #404040 !important;
+  color: #ffffff !important;
+}
+
+.dark-mode .ra-list .MuiFormControl-root .MuiInputLabel-root {
+  color: #b0b0b0 !important;
+}
+
+.dark-mode .ra-list .MuiFormControl-root .MuiOutlinedInput-root {
+  color: #ffffff !important;
+}
+
+.dark-mode .ra-list .MuiFormControl-root .MuiOutlinedInput-notchedOutline {
+  border-color: #404040 !important;
+}
+
+.dark-mode .ra-list .MuiFormControl-root .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: #ffffff !important;
+}
+
+.dark-mode .ra-list .MuiFormControl-root .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #1976d2 !important;
+}
+
+.dark-mode .ra-list .MuiSelect-root {
+  color: #ffffff !important;
+}
+
+.dark-mode .ra-list .MuiSelect-icon {
+  color: #ffffff !important;
+}
+
+.dark-mode .ra-list .MuiPagination-root .MuiPaginationItem-root {
+  color: #ffffff !important;
+}
+
+.dark-mode .ra-list .MuiPagination-root .MuiPaginationItem-root.Mui-selected {
+  background-color: #1976d2 !important;
+  color: #ffffff !important;
+}
+
+.dark-mode .ra-list .MuiPagination-root .MuiPaginationItem-root:hover {
+  background-color: #2d2d2d !important;
+}
+
+/* Global dark mode override - most aggressive approach */
+.dark-mode .MuiAppBar-root,
+.dark-mode .MuiDrawer-paper,
+.dark-mode .MuiPaper-root,
+.dark-mode .MuiCard-root,
+.dark-mode .MuiTableContainer-root,
+.dark-mode .MuiTableHead-root,
+.dark-mode .MuiTableCell-root,
+.dark-mode .MuiTableRow-root,
+.dark-mode .MuiButton-root,
+.dark-mode .MuiTextField-root,
+.dark-mode .MuiSelect-root,
+.dark-mode .MuiMenuItem-root,
+.dark-mode .MuiChip-root,
+.dark-mode .MuiTypography-root,
+.dark-mode .MuiIconButton-root,
+.dark-mode .MuiListItem-root,
+.dark-mode .MuiDivider-root,
+.dark-mode .MuiToolbar-root,
+.dark-mode .MuiMenu-paper,
+.dark-mode .ra-app,
+.dark-mode .ra-layout,
+.dark-mode .ra-sidebar,
+.dark-mode .ra-content,
+.dark-mode .ra-list {
+  background-color: #1e1e1e !important;
+  color: #ffffff !important;
+  border-color: #404040 !important;
+}
+
+.dark-mode .MuiAppBar-root {
+  background-color: #1e1e1e !important;
+}
+
+.dark-mode .MuiDrawer-paper {
+  background-color: #1e1e1e !important;
+}
+
+.dark-mode .MuiTableHead-root {
+  background-color: #2d2d2d !important;
+}
+
+.dark-mode .MuiTableRow-root:hover {
+  background-color: #2d2d2d !important;
+}
+
+.dark-mode .MuiButton-contained {
+  background-color: #1976d2 !important;
+}
+
+.dark-mode .MuiButton-outlined {
+  border-color: #404040 !important;
+}
+
+.dark-mode .MuiButton-outlined:hover {
+  background-color: #2d2d2d !important;
+}

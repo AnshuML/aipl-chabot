@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --sidebar-width: 280px;
+}
+
+html, body, #root { height: 100%; }
+body { margin: 0; }
+
+/* Dark mode support */
+.dark {
+  color-scheme: dark;
+}

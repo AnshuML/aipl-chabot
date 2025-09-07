@@ -1,0 +1,56 @@
+# General
+.DS_Store
+*.log
+node_modules/
+.env
+.env.local
+.venv/
+__pycache__/
+dist/
+build/
+
+# Python
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual Environments
+AIPL/venv/
+venv/
+env/
+.venv/
+.env/
+
+# VSCode
+.vscode/
+
+# Frontend
+chat-frontend/.vite/
+chat-frontend/.next/
+chat-frontend/.turbo/
+admin-frontend/.vite/
+admin-frontend/.next/
+admin-frontend/.turbo/
+
+# Data & logs
+api/data/
+logs/
+*.json
+*.bin
+faiss_index.bin
+vector_db.json
+users.json
+
+# API Keys and Secrets
+api/env.local
+AIPL/env.local
+
+# Docker
+*.pid
+
+# Temporary files
+*.tmp
+*.temp
