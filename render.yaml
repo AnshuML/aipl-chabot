@@ -6,7 +6,8 @@ services:
     plan: free
     buildCommand: pip install uv && uv pip install -r requirements.txt
     startCommand: cd api && uvicorn app.main:app --host 0.0.0.0 --port $PORT
-uv    envVars:
+    runtime: python-3.10
+    envVars:
       - key: OPENAI_API_KEY
         sync: false
       - key: EMBEDDING_MODEL
