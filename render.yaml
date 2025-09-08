@@ -17,8 +17,9 @@ services:
         value: IT,HR,Accounts,Factory,Marketing
 
   # Chat Frontend
-  - type: static
+  - type: web
     name: aipl-chatbot-frontend
+    env: static
     buildCommand: cd chat-frontend && npm install && npm run build
     staticPublishPath: chat-frontend/dist
     envVars:
@@ -26,8 +27,9 @@ services:
         value: https://aipl-chatbot-api.onrender.com
 
   # Admin Frontend
-  - type: static
+  - type: web
     name: aipl-chatbot-admin
+    env: static
     buildCommand: cd admin-frontend && npm install && npm run build
     staticPublishPath: admin-frontend/dist
     envVars:
