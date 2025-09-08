@@ -2,7 +2,6 @@ import streamlit as st
 import os
 import json
 from datetime import datetime
-import requests
 from typing import List, Dict, Any
 
 # Page config
@@ -113,14 +112,14 @@ def get_chat_response(query: str, department: str) -> str:
     """Get response from AI (simplified version)"""
     # This is a simplified version - in real app, connect to your RAG system
     responses = {
-        "hr": "This is an HR-related response. Please contact HR department for more details.",
-        "it": "This is an IT-related response. Please contact IT department for more details.",
-        "accounts": "This is an Accounts-related response. Please contact Accounts department for more details.",
-        "factory": "This is a Factory-related response. Please contact Factory department for more details.",
-        "marketing": "This is a Marketing-related response. Please contact Marketing department for more details."
+        "hr": f"HR Response: Thank you for your query '{query}'. Please contact HR department for more details.",
+        "it": f"IT Response: Thank you for your query '{query}'. Please contact IT department for more details.",
+        "accounts": f"Accounts Response: Thank you for your query '{query}'. Please contact Accounts department for more details.",
+        "factory": f"Factory Response: Thank you for your query '{query}'. Please contact Factory department for more details.",
+        "marketing": f"Marketing Response: Thank you for your query '{query}'. Please contact Marketing department for more details."
     }
     
-    return responses.get(department.lower(), "Thank you for your query. Our team will get back to you soon.")
+    return responses.get(department.lower(), f"Thank you for your query '{query}'. Our team will get back to you soon.")
 
 # Main app
 def main():
