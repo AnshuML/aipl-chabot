@@ -4,7 +4,7 @@ services:
     name: aipl-chatbot-api
     env: python
     plan: free
-    buildCommand: cd api && pip install -r requirements.txt
+    buildCommand: pip install -r requirements.txt
     startCommand: cd api && uvicorn app.main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: OPENAI_API_KEY
