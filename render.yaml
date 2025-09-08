@@ -4,9 +4,8 @@ services:
     name: aipl-chatbot-api
     env: python
     plan: free
-    buildCommand: pip install -r requirements.txt
-    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
-    rootDir: api
+    buildCommand: pip install -r api/requirements.txt
+    startCommand: cd api && uvicorn app.main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: OPENAI_API_KEY
         sync: false
@@ -21,9 +20,8 @@ services:
   - type: web
     name: aipl-chatbot-frontend
     env: static
-    buildCommand: npm install && npm run build
-    staticPublishPath: dist
-    rootDir: chat-frontend
+    buildCommand: cd chat-frontend && npm install && npm run build
+    staticPublishPath: chat-frontend/dist
     envVars:
       - key: VITE_API_URL
         value: https://aipl-chatbot-api.onrender.com
@@ -32,9 +30,8 @@ services:
   - type: web
     name: aipl-chatbot-admin
     env: static
-    buildCommand: npm install && npm run build
-    staticPublishPath: dist
-    rootDir: admin-frontend
+    buildCommand: cd admin-frontend && npm install && npm run build
+    staticPublishPath: admin-frontend/dist
     envVars:
       - key: VITE_ADMIN_API_URL
         value: https://aipl-chatbot-api.onrender.com
