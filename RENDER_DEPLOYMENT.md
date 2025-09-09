@@ -1,104 +1,128 @@
-# 🚀 Render Cloud Deployment Guide
+# 🚀 Render Deployment Guide
 
-## **Step 1: GitHub Repository Setup**
+## Prerequisites
+- Render account (free tier available)
+- GitHub repository with your code
+- OpenAI API key
 
-1. **Push to GitHub**:
-```bash
-git add .
-git commit -m "Ready for deployment"
-git push origin main
-```
+## Step 1: Prepare Your Repository
 
-## **Step 2: Render Account Setup**
+1. **Push your code to GitHub** (if not already done)
+2. **Ensure all files are committed** including:
+   - `render.yaml`
+   - `api/requirements-prod.txt`
+   - `api/Dockerfile.prod`
 
-1. **Create Render Account**: https://render.com
-2. **Connect GitHub**: Link your GitHub account
-3. **Import Repository**: Select your chatbot repository
+## Step 2: Create Render Services
 
-## **Step 3: Deploy Backend API**
-
-1. **Create New Web Service**:
+### Backend API Service
+1. Go to [Render Dashboard](https://dashboard.render.com)
+2. Click "New +" → "Web Service"
+3. Connect your GitHub repository
+4. Configure:
    - **Name**: `aipl-chatbot-api`
    - **Environment**: `Python 3`
-   - **Build Command**: `pip install -r api/requirements.txt`
+   - **Build Command**: `cd api && pip install -r requirements-prod.txt`
    - **Start Command**: `cd api && uvicorn app.main:app --host 0.0.0.0 --port $PORT`
+   - **Plan**: Starter (Free) or Paid
 
-2. **Environment Variables**:
-   - `OPENAI_API_KEY`: Your OpenAI API key
-   - `EMBEDDING_MODEL`: `text-embedding-3-large`
-   - `CHAT_MODEL`: `gpt-4o-mini`
-   - `ALLOWED_DEPARTMENTS`: `IT,HR,Accounts,Factory,Marketing`
+### Environment Variables for API
+Add these environment variables in Render dashboard:
+```
+OPENAI_API_KEY=your_openai_api_key_here
+EMBEDDING_MODEL=text-embedding-3-large
+CHAT_MODEL=gpt-4o-mini
+ALLOWED_DEPARTMENTS=IT,HR,Accounts,Factory,Marketing
+```
 
-3. **Deploy**: Click "Create Web Service"
+### Frontend Services
+1. **Chat Frontend**:
+   - Type: Static Site
+   - Build Command: `cd chat-frontend && npm install && npm run build`
+   - Publish Directory: `chat-frontend/dist`
+   - Environment Variable: `VITE_API_URL=https://your-api-url.onrender.com`
 
-## **Step 4: Deploy Chat Frontend**
+2. **Admin Frontend**:
+   - Type: Static Site
+   - Build Command: `cd admin-frontend && npm install && npm run build`
+   - Publish Directory: `admin-frontend/dist`
+   - Environment Variable: `VITE_ADMIN_API_URL=https://your-api-url.onrender.com`
 
-1. **Create New Static Site**:
-   - **Name**: `aipl-chatbot-frontend`
-   - **Build Command**: `cd chat-frontend && npm install && npm run build`
-   - **Publish Directory**: `chat-frontend/dist`
+## Step 3: Persistent Storage
 
-2. **Environment Variables**:
-   - `VITE_API_URL`: `https://your-api-url.onrender.com`
+For vector database persistence, you have two options:
 
-3. **Deploy**: Click "Create Static Site"
+### Option 1: Render Disk (Recommended for Paid Plans)
+- Add a disk to your API service
+- Mount path: `/opt/render/project/api`
+- Size: 1GB (minimum)
 
-## **Step 5: Deploy Admin Frontend**
+### Option 2: External Storage (Free Tier)
+- Use cloud storage (AWS S3, Google Cloud Storage)
+- Modify code to store vector database in cloud
 
-1. **Create New Static Site**:
-   - **Name**: `aipl-chatbot-admin`
-   - **Build Command**: `cd admin-frontend && npm install && npm run build`
-   - **Publish Directory**: `admin-frontend/dist`
+## Step 4: Domain Configuration
 
-2. **Environment Variables**:
-   - `VITE_ADMIN_API_URL`: `https://your-api-url.onrender.com`
+1. **Custom Domain** (Optional):
+   - Go to your service settings
+   - Add custom domain
+   - Update CORS settings in API
 
-3. **Deploy**: Click "Create Static Site"
+2. **CORS Configuration**:
+   - Update `app/main.py` to include your frontend URLs
+   - Add your domain to allowed origins
 
-## **Step 6: Test Deployment**
+## Step 5: Testing
 
-1. **Chat Frontend**: `https://aipl-chatbot-frontend.onrender.com`
-2. **Admin Panel**: `https://aipl-chatbot-admin.onrender.com`
-3. **API**: `https://aipl-chatbot-api.onrender.com`
+1. **API Health Check**:
+   - Visit: `https://your-api-url.onrender.com/health`
+   - Should return: `{"status": "healthy"}`
 
-## **Features Available After Deployment**
+2. **Frontend Testing**:
+   - Visit your frontend URL
+   - Test login and chat functionality
+   - Upload documents through admin panel
 
-✅ **Chat Interface**: Users can chat with the bot
-✅ **Document Upload**: Upload PDFs and documents
-✅ **Admin Panel**: Manage documents and users
-✅ **Analytics**: View usage statistics
-✅ **Dark Theme**: Complete dark mode support
-✅ **Multi-Department**: IT, HR, Accounts, Factory, Marketing
-✅ **Login System**: Company email validation
+## Step 6: Monitoring
 
-## **Cost**
+1. **Logs**: Check Render dashboard for logs
+2. **Metrics**: Monitor CPU, memory usage
+3. **Uptime**: Set up uptime monitoring
 
-- **Free Tier**: 750 hours/month
-- **Backend**: Free (with limitations)
-- **Frontend**: Free (static sites)
-- **Total Cost**: $0 for testing
+## Cost Estimation
 
-## **Limitations of Free Tier**
+### Free Tier
+- API: 750 hours/month (free)
+- Static sites: Unlimited
+- **Total**: $0/month
 
-- **Sleep Mode**: App sleeps after 15 minutes of inactivity
-- **Cold Start**: 30-60 seconds to wake up
-- **Memory**: 512MB RAM limit
-- **Storage**: 1GB disk space
+### Paid Plans
+- API: $7/month (Starter plan)
+- Static sites: Free
+- **Total**: $7/month
 
-## **Production Recommendations**
+## Troubleshooting
 
-For production use, consider upgrading to:
-- **Starter Plan**: $7/month (always on, 512MB RAM)
-- **Standard Plan**: $25/month (always on, 1GB RAM)
+### Common Issues
+1. **Build Failures**: Check build logs in Render dashboard
+2. **Environment Variables**: Ensure all required variables are set
+3. **CORS Issues**: Update CORS settings in API
+4. **Memory Issues**: Upgrade to paid plan for more resources
 
-## **User Testing URLs**
+### Support
+- Render Documentation: https://render.com/docs
+- Render Community: https://community.render.com
 
-Once deployed, share these URLs with your users:
-- **Chat**: `https://aipl-chatbot-frontend.onrender.com`
-- **Admin**: `https://aipl-chatbot-admin.onrender.com`
+## Security Notes
 
-## **Monitoring**
+1. **API Keys**: Never commit API keys to repository
+2. **Environment Variables**: Use Render's environment variable system
+3. **CORS**: Configure CORS properly for production
+4. **HTTPS**: Render provides HTTPS by default
 
-- **Logs**: Available in Render dashboard
-- **Metrics**: CPU, Memory, Response time
-- **Uptime**: 99.9% SLA on paid plans
+## Performance Optimization
+
+1. **Caching**: Implement Redis caching for better performance
+2. **CDN**: Use Render's CDN for static assets
+3. **Database**: Consider external database for large datasets
+4. **Monitoring**: Set up proper monitoring and alerting

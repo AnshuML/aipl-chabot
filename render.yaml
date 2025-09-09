@@ -1,11 +1,15 @@
 services:
-  # Backend API
+  # Backend API Service
   - type: web
     name: aipl-chatbot-api
     env: python
-    plan: free
-    buildCommand: pip install uv && uv pip install -r requirements.txt
-    startCommand: cd api && uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    plan: starter
+    buildCommand: |
+      cd api
+      pip install -r requirements.txt
+    startCommand: |
+      cd api
+      uvicorn app.main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: OPENAI_API_KEY
         sync: false
@@ -15,23 +19,33 @@ services:
         value: gpt-4o-mini
       - key: ALLOWED_DEPARTMENTS
         value: IT,HR,Accounts,Factory,Marketing
+    disk:
+      name: aipl-storage
+      mountPath: /opt/render/project/api
+      sizeGB: 1
 
-  # Chat Frontend
+  # Chat Frontend Service
   - type: web
     name: aipl-chatbot-frontend
     env: static
-    buildCommand: cd chat-frontend && npm install && npm run build
-    staticPublishPath: chat-frontend/dist
+    buildCommand: |
+      cd chat-frontend
+      npm install
+      npm run build
+    staticPublishPath: ./chat-frontend/dist
     envVars:
       - key: VITE_API_URL
         value: https://aipl-chatbot-api.onrender.com
 
-  # Admin Frontend
+  # Admin Frontend Service
   - type: web
     name: aipl-chatbot-admin
     env: static
-    buildCommand: cd admin-frontend && npm install && npm run build
-    staticPublishPath: admin-frontend/dist
+    buildCommand: |
+      cd admin-frontend
+      npm install
+      npm run build
+    staticPublishPath: ./admin-frontend/dist
     envVars:
       - key: VITE_ADMIN_API_URL
         value: https://aipl-chatbot-api.onrender.com

@@ -110,7 +110,7 @@ export default function App() {
       const res = await fetch(`${API_BASE}/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ user: user.user_id, department, query: q, language }),
+        body: JSON.stringify({ user: user.name, department, query: q, language }),
       })
       const json = await res.json()
       setMessages(m => [...m, { role: 'assistant', content: json.answer ?? 'No answer' }])

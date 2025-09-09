@@ -1,33 +1,33 @@
 @echo off
-echo Starting AIPL Chatbot System...
-echo.
+echo ========================================
+echo Starting AIPL ChatBot Services
+echo ========================================
 
+echo.
 echo Starting Backend API...
-start "API Server" cmd /k "cd api && python -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+start "Backend API" cmd /k "cd api && uvicorn app.main:app --host 0.0.0.0 --port 8000"
 
-timeout /t 3 /nobreak > nul
+echo.
+echo Waiting 5 seconds for backend to start...
+timeout /t 5 /nobreak > nul
 
-echo Starting Admin Frontend...
-start "Admin Panel" cmd /k "cd admin-frontend && npm run dev"
-
-timeout /t 2 /nobreak > nul
-
+echo.
 echo Starting Chat Frontend...
-start "Chat Interface" cmd /k "cd chat-frontend && npm run dev"
+start "Chat Frontend" cmd /k "cd chat-frontend && npm run dev"
 
 echo.
-echo All services are starting...
-echo.
-echo Access Points:
-echo - API Documentation: http://localhost:8000/docs
-echo - Admin Panel: http://localhost:5173
-echo - Chat Interface: http://localhost:5174
-echo.
-echo Press any key to run system test...
-pause > nul
+echo Starting Admin Frontend...
+start "Admin Frontend" cmd /k "cd admin-frontend && npm run dev"
 
-python test_complete_system.py
-
+echo.
+echo ========================================
+echo All Services Started!
+echo ========================================
+echo.
+echo Access URLs:
+echo - Backend API: http://localhost:8000
+echo - Chat Frontend: http://localhost:5173
+echo - Admin Frontend: http://localhost:5174
 echo.
 echo Press any key to exit...
 pause > nul
