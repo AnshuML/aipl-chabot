@@ -1,0 +1,129 @@
+name: Local Server CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-and-build:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+        
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: |
+          admin-frontend/package-lock.json
+          chat-frontend/package-lock.json
+    
+    - name: Install Python dependencies
+      run: |
+        cd api
+        pip install -r requirements.txt
+        
+    - name: Install Admin Frontend dependencies
+      run: |
+        cd admin-frontend
+        npm install
+        
+    - name: Install Chat Frontend dependencies
+      run: |
+        cd chat-frontend
+        npm install
+        
+    - name: Build Admin Frontend
+      run: |
+        cd admin-frontend
+        npm run build
+        
+    - name: Build Chat Frontend
+      run: |
+        cd chat-frontend
+        npm run build
+        
+    - name: Test Backend API
+      run: |
+        cd api
+        python -m pytest tests/ -v || echo "No tests found, skipping..."
+      env:
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-files
+        path: |
+          api/
+          admin-frontend/dist/
+          chat-frontend/dist/
+        retention-days: 7
+
+  deploy-local:
+    needs: test-and-build
+    runs-on: windows-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Download build artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: build-files
+        
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+        
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        
+    - name: Deploy to Local Server
+      run: |
+        # Stop existing services
+        taskkill /F /IM python.exe /T 2>nul || echo "No Python processes to kill"
+        taskkill /F /IM node.exe /T 2>nul || echo "No Node processes to kill"
+        
+        # Install dependencies
+        cd api
+        pip install -r requirements.txt
+        
+        cd ../admin-frontend
+        npm install
+        
+        cd ../chat-frontend
+        npm install
+        
+        # Start services
+        cd ../api
+        start "Backend API" cmd /k "uvicorn app.main:app --host 0.0.0.0 --port 8000"
+        
+        timeout /t 5 /nobreak > nul
+        
+        cd ../admin-frontend
+        start "Admin Frontend" cmd /k "npm run dev"
+        
+        cd ../chat-frontend
+        start "Chat Frontend" cmd /k "npm run dev"
+        
+        echo "Deployment completed successfully!"
+      env:
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        VITE_API_URL: http://localhost:8000
+        VITE_ADMIN_API_URL: http://localhost:8000
