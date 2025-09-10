@@ -20,6 +20,7 @@ build/
 # Virtual Environments
 AIPL/venv/
 venv/
+venv/
 env/
 .venv/
 .env/

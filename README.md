@@ -100,6 +100,8 @@ kubectl get pods
 #cd admin-frontend && npm run dev
 #cd chat-frontend && npm run dev
 #cd api && python -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+#conda activate C:\Users\anshu\Desktop\zorro_bot\api\venv
+
 
 #cd api && python test_accuracy_improvements.py
 #https://github.com/AnshuML/aipl-chabot.git
