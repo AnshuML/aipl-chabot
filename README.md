@@ -102,3 +102,4 @@ kubectl get pods
 #cd api && python -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 
 #cd api && python test_accuracy_improvements.py
+#https://github.com/AnshuML/aipl-chabot.git
